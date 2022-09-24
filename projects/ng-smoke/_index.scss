@@ -1,0 +1,15 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+body, html {
+  @apply smk-w-full smk-h-full smk-p-0 smk-m-0;
+}
+
+.smk-card {
+  @apply smk-transition smk-bg-white smk-relative;
+}
+
+.smk-card-header {
+}
+
+@import 'tailwindcss/utilities';
