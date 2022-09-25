@@ -1,15 +1,119 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 
+@keyframes progress {
+  100% {
+    transform: translateX(0%);
+    opacity: 0;
+  }
+}
+
+@keyframes indeterminate-short-rtl {
+  0% {
+    left: 100%;
+    right: -200%
+  }
+  60% {
+    left: -8%;
+    right: 107%
+  }
+  to {
+    left: -8%;
+    right: 107%
+  }
+}
+
+@keyframes indeterminate-short-ltr {
+  0% {
+    left: -200%;
+    right: 100%
+  }
+  60% {
+    left: 107%;
+    right: -8%
+  }
+  to {
+    left: 107%;
+    right: -8%
+  }
+}
+
+@keyframes indeterminate-rtl {
+  0% {
+    left: 100%;
+    right: -90%
+  }
+  60% {
+    left: 100%;
+    right: -90%
+  }
+  to {
+    left: -35%;
+    right: 100%
+  }
+}
+
+@keyframes indeterminate-ltr {
+  0% {
+    left: -90%;
+    right: 100%
+  }
+  60% {
+    left: -90%;
+    right: 100%
+  }
+  to {
+    left: 100%;
+    right: -35%
+  }
+}
+
 body, html {
   @apply smk-w-full smk-h-full smk-p-0 smk-m-0;
+}
+
+.smk-parent-border-top {
+  @apply smk-rounded-tl-[inherit] smk-rounded-tr-[inherit];
+}
+
+.smk-disabled {
+  @apply smk-pointer-events-none smk-select-none;
 }
 
 .smk-card {
   @apply smk-transition smk-bg-white smk-relative;
 }
 
+.smk-card.smk-disabled > * {
+  @apply smk-opacity-60;
+}
+
 .smk-card-header {
+  @apply smk-parent-border-top;
+}
+
+.smk-card-progress {
+  @apply smk-overflow-hidden smk-h-1 smk-top-0 smk-left-0 smk-right-0 smk-parent-border-top;
+}
+
+.smk-progress {
+  @apply smk-h-1 smk-relative smk-left-0 smk-overflow-hidden smk-w-full smk-parent-border-top smk-transition-all smk-ease-progress ;
+}
+
+.smk-progress .smk-progress-base {
+  @apply smk-opacity-30 smk-left-[0%] smk-w-[100%] smk-absolute smk-top-0 smk-bottom-0;
+}
+
+.smk-progress .smk-progress-buffer {
+  @apply smk-absolute smk-top-0 smk-left-0 smk-w-full smk-h-[inherit] smk-transition-[inherit];
+}
+
+.smk-progress .smk-progress-animator .smk-progress-animator-short {
+  @apply smk-animate-indeterminate-short-ltr smk-absolute smk-will-change-left-right smk-bottom-0 smk-left-0 smk-top-0 smk-right-auto smk-w-auto smk-h-[inherit];
+}
+
+.smk-progress .smk-progress-animator .smk-progress-animator-long {
+  @apply smk-animate-indeterminate-ltr smk-absolute smk-will-change-left-right smk-bottom-0 smk-left-0 smk-top-0 smk-right-auto smk-w-auto smk-h-[inherit];
 }
 
 @import 'tailwindcss/utilities';

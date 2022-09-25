@@ -4,8 +4,7 @@ module.exports = {
   prefix: 'smk-',
   theme: {
     extend: {
-      colors: {
-      },
+      colors: {},
       boxShadow: {
         0: 'none',
         1: '0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)',
@@ -34,6 +33,61 @@ module.exports = {
         24: '0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12)',
       }
     },
+    willChange: {
+      'left-right': 'left, right',
+    },
+    translate: {
+      '-100': '-100%',
+      progress: '-100%',
+    },
+    animation: {
+      'progress': 'progress 3s ease-out infinite',
+      'indeterminate-short-ltr': 'indeterminate-short-ltr 2.2s ease-out infinite',
+      'indeterminate-short-rtl': 'indeterminate-short-rtl 2.2s ease-out infinite',
+      'indeterminate-rtl': 'indeterminate-rtl 2.2s ease-out infinite',
+      'indeterminate-ltr': 'indeterminate-ltr 2.2s ease-out infinite',
+      'gradient-x': 'gradient-x 1s ease infinite',
+      'gradient-y': 'gradient-y 1s ease infinite',
+      'gradient-xy': 'gradient-xy 1s ease infinite',
+    },
+    transitionTimingFunction: {
+      progress: 'cubic-bezier(.4, 0, .6, 1)',
+    },
+    backgroundImage: {
+      progress: 'linear-gradient(90deg, rgba(233, 233, 233, 1) 0, rgba(233, 233, 233, 0.9) 50%,rgba(233, 233, 233, 0.8) 100%)'
+    },
+    keyframes: {
+      'gradient-y': {
+        '0%, 100%': {
+          'background-size': '400% 400%',
+          'background-position': 'center top'
+        },
+        '50%': {
+          'background-size': '200% 200%',
+          'background-position': 'center center'
+        }
+      },
+      'gradient-x': {
+        '0%, 100%': {
+          'background-size': '200% 200%',
+          'background-position': 'left center'
+        },
+        '50%': {
+          'background-size': '200% 200%',
+          'background-position': 'right center'
+        }
+      },
+      'gradient-xy': {
+        '0%, 100%': {
+          'background-size': '400% 400%',
+          'background-position': 'left center'
+        },
+        '50%': {
+          'background-size': '200% 200%',
+          'background-position': 'right center'
+        }
+      }
+    }
   },
   safelist: [
     {

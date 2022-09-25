@@ -9,14 +9,20 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {SharedModule, SmkTemplate} from '../../util/shared';
+import {SharedModule, SmkTemplate} from '../util/shared';
 import {CommonModule} from "@angular/common";
+import {SmkProgressModule} from "../progress/progress";
 
 @Component({
   selector: 'smk-card',
   template: `
     <div [ngClass]="computedClass" [ngStyle]="style" [class]="styleClass" *ngIf="visible">
       <div *ngIf="closable" class="smk-absolute smk-right-0 smk-top-0" (click)="close()">X</div>
+
+      <div *ngIf="loading" class="smk-card-progress">
+        <smk-progress [color]="color" styleClass="smk-absolute" class="smk-h-1"></smk-progress>
+      </div>
+
       <div *ngIf="headerTpl" class="smk-card-header" #headerTplContainer>
         <ng-container [ngTemplateOutlet]="headerTpl.template"></ng-container>
       </div>
@@ -33,7 +39,7 @@ import {CommonModule} from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class CardComponent implements AfterViewInit {
+export class SmkCardComponent implements AfterViewInit {
   @Input() style: any;
   @Input() styleClass: string;
   /**
@@ -42,12 +48,16 @@ export class CardComponent implements AfterViewInit {
   @Input() elevation: number = 0; // min 0, max 24
   @Input() rounded: boolean = true;
   @Input() outlined: boolean = false;
+  @Input() shaped: boolean = false;
   @Input() hoverable: boolean = false;
   @Input() closable: boolean = false;
   @Input() visible: boolean = true;
+  @Input() disabled: boolean = false;
+  @Input() loading: boolean = false;
   @Input() padding: number = 3;
   @Input() hoverStep: number = 4;
   @Input() header: string;
+  @Input() color: string = 'smk-bg-indigo-600';
   @ViewChild('headerTplContainer') headerTplContainer: ElementRef;
   @ContentChild(SmkTemplate, {read: SmkTemplate}) headerTpl: SmkTemplate;
 
@@ -57,13 +67,12 @@ export class CardComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.headerTpl) {
       if (this.rounded) {
-        this.headerTplContainer.nativeElement.childNodes[0].className += ' smk-rounded-t';
+        this.headerTplContainer.nativeElement.childNodes[0].className += ' smk-parent-border-top';
       }
     }
   }
 
   close(): void {
-    console.log('close');
     this.visible = false;
   }
 
@@ -76,8 +85,14 @@ export class CardComponent implements AfterViewInit {
     if (this.rounded) {
       computed.push('smk-rounded');
     }
+    if (this.shaped) {
+      computed.push('smk-rounded-tl-xl smk-rounded-tr-none smk-rounded-bl-none smk-rounded-br-xl');
+    }
     if (this.outlined) {
       computed.push('smk-border');
+    }
+    if (this.disabled) {
+      computed.push('smk-disabled');
     }
     if (this.hoverable) {
       let hoverElevation = this.elevation + this.hoverStep;
@@ -94,9 +109,9 @@ export class CardComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule],
-  exports: [CardComponent, SharedModule],
-  declarations: [CardComponent]
+  imports: [CommonModule, SmkProgressModule],
+  exports: [SmkCardComponent, SharedModule, SmkProgressModule],
+  declarations: [SmkCardComponent]
 })
-export class CardModule {
+export class SmkCardModule {
 }
